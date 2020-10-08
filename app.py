@@ -1,6 +1,7 @@
 import random
 import math
 import pygame
+from pygame import mixer
 
 pygame.init() # to initialize
 
@@ -17,6 +18,10 @@ pygame.display.set_icon(icon)
 
 # background of screen
 background = pygame.image.load("background.png")
+
+# background music
+mixer.music.load("background.wav")
+mixer.music.play(-1)
 
 # set a player
 PlayerImg = pygame.image.load("player.png")
@@ -45,7 +50,7 @@ BulletImg = pygame.image.load("bullet.png")
 # bullet position
 BulletX = 0
 BulletY = PlayerY
-BulletY_change = 30
+BulletY_change = 38
 """
 bullet_state value
     if "Ready!" you can't see the bullet!
@@ -112,6 +117,8 @@ while running:
                 PlayerX_change = 5
             elif( event.key == pygame.K_SPACE ):
                 if( bullet_state == "Ready!"):
+                    lasser = mixer.Sound("laser-shot.wav")
+                    lasser.play()
                     # call bullet function
                     BulletX = PlayerX
                     bullet(BulletX,BulletY)
@@ -139,11 +146,14 @@ while running:
 
         collision = ColliSion(EnemyX[i],EnemyY[i],BulletX,BulletY)
         if( collision ):
+            explosion = mixer.Sound("explosion.wav")
+            explosion.play()
             BulletY = PlayerY
             bullet_state = "Ready!"
             EnemyX[i] = random.randint(0,736)
             EnemyY[i] = random.randint(50,150)
             EnemyX_change[i] = random.choice([-4,4])
+            p_score += 1
 
         # boundaries of enemy
         if( EnemyX[i] <= 0 ):
