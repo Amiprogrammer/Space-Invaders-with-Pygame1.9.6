@@ -30,7 +30,7 @@ running = True
 while running:
 
     # change the background color
-    screen.fill((250,250,250)) # RGB color = Red, Green, Blue
+    screen.fill((19,95,107)) # RGB color = Red, Green, Blue
 
     # to get event in pygame
     for event in pygame.event.get():
@@ -49,6 +49,12 @@ while running:
         if( event.type == pygame.KEYUP ):
             if( event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT ):
                 PlayerX_change = 0
+
+    # boundaries of player
+    if( PlayerX <= 0 ):
+        PlayerX = 0
+    elif( PlayerX >= 736 ):
+        PlayerX = 736
 
     # movenment of player
     PlayerX += PlayerX_change
