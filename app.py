@@ -39,6 +39,9 @@ while running:
             # override this value of variable
             running = False
 
+    # movenment of player
+    # PlayerX += 1
+    PlayerY -= 1
     player(PlayerX,PlayerY)
 
     pygame.display.update() # to update anything in pygame
