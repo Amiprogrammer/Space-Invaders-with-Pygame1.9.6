@@ -25,13 +25,20 @@ PlayerX = 370
 PlayerY = 480
 PlayerX_change = 0
 
-# set a enemy
-EnemyImg = pygame.image.load("enemy.png")
-# enemy position
-EnemyX = random.randint(0,736)
-EnemyY = random.randint(50,150)
-EnemyX_change = random.choice([-4,4])
-EnemyY_change = 40
+# set a multiple enemy
+EnemyImg = []
+EnemyX = []
+EnemyY = []
+EnemyX_change = []
+EnemyY_change = []
+num_of_enemyes = random.randint(6,8)
+for i in range(num_of_enemyes):
+    EnemyImg.append(pygame.image.load("enemy.png"))
+    # enemy position
+    EnemyX.append(random.randint(0,736))
+    EnemyY.append(random.randint(50,150))
+    EnemyX_change.append(random.choice([-4,4]))
+    EnemyY_change.append(40)
 
 # bullet for shooting
 BulletImg = pygame.image.load("bullet.png")
@@ -55,9 +62,9 @@ def player(x,y):
     screen.blit(PlayerImg,(x,y))
 
 # function to include enemy
-def enemy(x,y):
+def enemy(x,y,i):
     global EnemyImg
-    screen.blit(EnemyImg,(x,y))
+    screen.blit(EnemyImg[i],(x,y))
 
 # function to include bullet
 def bullet(x,y):
@@ -112,14 +119,6 @@ while running:
     elif( PlayerX >= 736 ):
         PlayerX = 736
 
-    # boundaries of enemy
-    if( EnemyX <= 0 ):
-        EnemyX_change = 4
-        EnemyY += EnemyY_change
-    elif( EnemyX >= 736 ):
-        EnemyX_change = -4
-        EnemyY += EnemyY_change
-
     # check of bullet state
     if( bullet_state == "Fire!" ):
         BulletY -= BulletY_change
@@ -129,24 +128,34 @@ while running:
         BulletY = PlayerY
         bullet_state = "Ready!"
 
-    collision = ColliSion(EnemyX,EnemyY,BulletX,BulletY)
-    if( collision ):
-        BulletY = PlayerY
-        bullet_state = "Ready!"
-        EnemyX = random.randint(0,736)
-        EnemyY = random.randint(50,150)
-        EnemyX_change = random.choice([-4,4])
-        p_score += 1
-        print(p_score)
+    for i in range(num_of_enemyes):
+
+        collision = ColliSion(EnemyX[i],EnemyY[i],BulletX,BulletY)
+        if( collision ):
+            BulletY = PlayerY
+            bullet_state = "Ready!"
+            EnemyX[i] = random.randint(0,736)
+            EnemyY[i] = random.randint(50,150)
+            EnemyX_change[i] = random.choice([-4,4])
+            p_score += 1
+            print(p_score)
+
+        # boundaries of enemy
+        if( EnemyX[i] <= 0 ):
+            EnemyX_change[i] = 4
+            EnemyY[i] += EnemyY_change[i]
+        elif( EnemyX[i] >= 736 ):
+            EnemyX_change[i] = -4
+            EnemyY[i] += EnemyY_change[i]
+
+        # call enemy function
+        EnemyX[i] += EnemyX_change[i]
+        enemy(EnemyX[i],EnemyY[i], i)
 
     # movenment of player
     PlayerX += PlayerX_change
     # call player function
     player(PlayerX,PlayerY)
-
-    # call enemy function
-    EnemyX += EnemyX_change
-    enemy(EnemyX,EnemyY)
 
     pygame.display.update() # to update anything in pygame
 
