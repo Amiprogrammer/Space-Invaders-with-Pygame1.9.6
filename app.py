@@ -32,6 +32,19 @@ EnemyY = random.randint(50,150)
 EnemyX_change = random.choice([-5,5])
 EnemyY_change = 50
 
+# bullet for shooting
+BulletImg = pygame.image.load("bullet.png")
+# bullet position
+BulletX = 0
+BulletY = PlayerY
+BulletY_change = 40
+"""
+bullet_state value
+    if "Ready!" you can't see the bullet!
+    "Fire!" currectly the bullet is shooting!
+"""
+bullet_state = "Ready!"
+
 # function to include player
 def player(x,y):
     global PlayerImg
@@ -41,6 +54,12 @@ def player(x,y):
 def enemy(x,y):
     global EnemyImg
     screen.blit(EnemyImg,(x,y))
+
+# function to include bullet
+def bullet(x,y):
+    global BulletImg,bullet_state
+    bullet_state = "Fire!"
+    screen.blit(BulletImg,(x + 16,y + 10))
 
 # game looping
 running = True
@@ -65,6 +84,9 @@ while running:
                 PlayerX_change = -6
             elif( event.key == pygame.K_RIGHT ):
                 PlayerX_change = 6
+            elif( event.key == pygame.K_SPACE ):
+                # call bullet function
+                bullet(PlayerX,BulletY)
         # when user not press an arrow of keyboard
         if( event.type == pygame.KEYUP ):
             if( event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT ):
@@ -83,6 +105,15 @@ while running:
     elif( EnemyX >= 736 ):
         EnemyX_change = -5
         EnemyY += EnemyY_change
+
+    # check of bullet state
+    if( bullet_state == "Fire!" ):
+        BulletY -= BulletY_change
+        bullet(PlayerX,BulletY)
+
+    if( BulletY <= 0 ):
+        BulletY = PlayerY
+        bullet_state = "Ready!"
 
     # movenment of player
     PlayerX += PlayerX_change
