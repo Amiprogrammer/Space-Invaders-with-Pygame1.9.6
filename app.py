@@ -64,9 +64,15 @@ p_score = 0
 TextX,TextY = 10,10
 font_score = pygame.font.Font("Roboto-Bold.ttf",32)
 
+font_game_over = pygame.font.Font("Roboto-Bold.ttf",72)
+
 def show_score(x,y):
     score = font_score.render(f"Score : {p_score}", True, (250,250,250))
     screen.blit(score,(x,y))
+
+def game_over():
+    game_over = font_game_over.render("Game Over!", True, (250,250,250))
+    screen.blit(game_over,(250,200))
 
 # function to include player
 def player(x,y):
@@ -143,6 +149,12 @@ while running:
         bullet_state = "Ready!"
 
     for i in range(num_of_enemyes):
+
+        if( EnemyY[i] > 426 ):
+            for j in range(num_of_enemyes):
+                EnemyY[j] = 5000
+            game_over()
+            break
 
         collision = ColliSion(EnemyX[i],EnemyY[i],BulletX,BulletY)
         if( collision ):
