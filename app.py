@@ -39,9 +39,19 @@ while running:
             # override this value of variable
             running = False
 
+        # when user press on keyboard
+        if( event.type == pygame.KEYDOWN ):
+            if( event.key == pygame.K_LEFT ):
+                PlayerX_change = -1
+            elif( event.key == pygame.K_RIGHT ):
+                PlayerX_change = 1
+        # when user not press an arrow of keyboard
+        if( event.type == pygame.KEYUP ):
+            if( event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT ):
+                PlayerX_change = 0
+
     # movenment of player
-    # PlayerX += 1
-    PlayerY -= 1
+    PlayerX += PlayerX_change
     player(PlayerX,PlayerY)
 
     pygame.display.update() # to update anything in pygame
