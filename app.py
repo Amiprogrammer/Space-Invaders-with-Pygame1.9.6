@@ -29,15 +29,15 @@ EnemyImg = pygame.image.load("enemy.png")
 # enemy position
 EnemyX = random.randint(0,736)
 EnemyY = random.randint(50,150)
-EnemyX_change = random.choice([-5,5])
-EnemyY_change = 50
+EnemyX_change = random.choice([-4,4])
+EnemyY_change = 40
 
 # bullet for shooting
 BulletImg = pygame.image.load("bullet.png")
 # bullet position
 BulletX = 0
 BulletY = PlayerY
-BulletY_change = 40
+BulletY_change = 30
 """
 bullet_state value
     if "Ready!" you can't see the bullet!
@@ -81,9 +81,9 @@ while running:
         # when user press on keyboard
         if( event.type == pygame.KEYDOWN ):
             if( event.key == pygame.K_LEFT ):
-                PlayerX_change = -6
+                PlayerX_change = -5
             elif( event.key == pygame.K_RIGHT ):
-                PlayerX_change = 6
+                PlayerX_change = 5
             elif( event.key == pygame.K_SPACE ):
                 if( bullet_state == "Ready!"):
                     # call bullet function
@@ -102,10 +102,10 @@ while running:
 
     # boundaries of enemy
     if( EnemyX <= 0 ):
-        EnemyX_change = 5
+        EnemyX_change = 4
         EnemyY += EnemyY_change
     elif( EnemyX >= 736 ):
-        EnemyX_change = -5
+        EnemyX_change = -4
         EnemyY += EnemyY_change
 
     # check of bullet state
