@@ -18,6 +18,12 @@ PlayerImg = pygame.image.load("player.png")
 # player position
 PlayerX = 370
 PlayerY = 480
+PlayerX_change = 0
+
+# function to include player
+def player(x,y):
+    global PlayerImg
+    screen.blit(PlayerImg,(x,y))
 
 # game looping
 running = True
@@ -33,7 +39,7 @@ while running:
             # override this value of variable
             running = False
 
-    screen.blit(PlayerImg,(PlayerX,PlayerY))
+    player(PlayerX,PlayerY)
 
     pygame.display.update() # to update anything in pygame
 
