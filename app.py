@@ -70,12 +70,19 @@ while running:
     elif( PlayerX >= 736 ):
         PlayerX = 736
 
+    # boundaries of enemy
+    if( EnemyX <= 0 ):
+        EnemyX_change = 1
+    elif( EnemyX >= 736 ):
+        EnemyX_change = -1
+
     # movenment of player
     PlayerX += PlayerX_change
     # call player function
     player(PlayerX,PlayerY)
 
     # call enemy function
+    EnemyX += EnemyX_change
     enemy(EnemyX,EnemyY)
 
     pygame.display.update() # to update anything in pygame
