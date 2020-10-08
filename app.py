@@ -1,4 +1,5 @@
 import random
+import math
 import pygame
 
 pygame.init() # to initialize
@@ -45,6 +46,9 @@ bullet_state value
 """
 bullet_state = "Ready!"
 
+# player score
+p_score = 0
+
 # function to include player
 def player(x,y):
     global PlayerImg
@@ -60,6 +64,14 @@ def bullet(x,y):
     global BulletImg,bullet_state
     bullet_state = "Fire!"
     screen.blit(BulletImg,(x + 16,y + 10))
+
+# collision and detectod two points is equal
+def ColliSion(EnemyX,EnemyY,BulletX,BulletY):
+    distance = math.sqrt((math.pow(EnemyX-BulletX,2)) + (math.pow(EnemyY-BulletY,2)))
+    if( distance < 27 ):
+        return True
+    else:
+        return False
 
 # game looping
 running = True
@@ -116,6 +128,16 @@ while running:
     if( BulletY <= 0 ):
         BulletY = PlayerY
         bullet_state = "Ready!"
+
+    collision = ColliSion(EnemyX,EnemyY,BulletX,BulletY)
+    if( collision ):
+        BulletY = PlayerY
+        bullet_state = "Ready!"
+        EnemyX = random.randint(0,736)
+        EnemyY = random.randint(50,150)
+        EnemyX_change = random.choice([-4,4])
+        p_score += 1
+        print(p_score)
 
     # movenment of player
     PlayerX += PlayerX_change
