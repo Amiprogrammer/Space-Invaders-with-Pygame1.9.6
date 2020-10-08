@@ -14,6 +14,9 @@ pygame.display.set_caption("Space Invaders")
 icon = pygame.image.load("ufo.png")
 pygame.display.set_icon(icon)
 
+# background of screen
+background = pygame.image.load("background.png")
+
 # set a player
 PlayerImg = pygame.image.load("player.png")
 # player position
@@ -26,7 +29,7 @@ EnemyImg = pygame.image.load("enemy.png")
 # enemy position
 EnemyX = random.randint(0,736)
 EnemyY = random.randint(50,150)
-EnemyX_change = random.choice([-1,1])
+EnemyX_change = random.choice([-5,5])
 EnemyY_change = 50
 
 # function to include player
@@ -46,6 +49,9 @@ while running:
     # change the background color
     screen.fill((19,95,107)) # RGB color = Red, Green, Blue
 
+    # set a background
+    screen.blit(background,(0,0))
+
     # to get event in pygame
     for event in pygame.event.get():
         # when user click on close window
@@ -56,9 +62,9 @@ while running:
         # when user press on keyboard
         if( event.type == pygame.KEYDOWN ):
             if( event.key == pygame.K_LEFT ):
-                PlayerX_change = -1
+                PlayerX_change = -6
             elif( event.key == pygame.K_RIGHT ):
-                PlayerX_change = 1
+                PlayerX_change = 6
         # when user not press an arrow of keyboard
         if( event.type == pygame.KEYUP ):
             if( event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT ):
@@ -72,9 +78,11 @@ while running:
 
     # boundaries of enemy
     if( EnemyX <= 0 ):
-        EnemyX_change = 1
+        EnemyX_change = 5
+        EnemyY += EnemyY_change
     elif( EnemyX >= 736 ):
-        EnemyX_change = -1
+        EnemyX_change = -5
+        EnemyY += EnemyY_change
 
     # movenment of player
     PlayerX += PlayerX_change
