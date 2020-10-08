@@ -55,6 +55,13 @@ bullet_state = "Ready!"
 
 # player score
 p_score = 0
+# postion text
+TextX,TextY = 10,10
+font_score = pygame.font.Font("Roboto-Bold.ttf",32)
+
+def show_score(x,y):
+    score = font_score.render(f"Score : {p_score}", True, (250,250,250))
+    screen.blit(score,(x,y))
 
 # function to include player
 def player(x,y):
@@ -137,8 +144,6 @@ while running:
             EnemyX[i] = random.randint(0,736)
             EnemyY[i] = random.randint(50,150)
             EnemyX_change[i] = random.choice([-4,4])
-            p_score += 1
-            print(p_score)
 
         # boundaries of enemy
         if( EnemyX[i] <= 0 ):
@@ -156,6 +161,9 @@ while running:
     PlayerX += PlayerX_change
     # call player function
     player(PlayerX,PlayerY)
+
+    # call show_score function
+    show_score(TextX,TextY)
 
     pygame.display.update() # to update anything in pygame
 
