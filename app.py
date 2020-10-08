@@ -85,8 +85,10 @@ while running:
             elif( event.key == pygame.K_RIGHT ):
                 PlayerX_change = 6
             elif( event.key == pygame.K_SPACE ):
-                # call bullet function
-                bullet(PlayerX,BulletY)
+                if( bullet_state == "Ready!"):
+                    # call bullet function
+                    BulletX = PlayerX
+                    bullet(BulletX,BulletY)
         # when user not press an arrow of keyboard
         if( event.type == pygame.KEYUP ):
             if( event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT ):
@@ -109,7 +111,7 @@ while running:
     # check of bullet state
     if( bullet_state == "Fire!" ):
         BulletY -= BulletY_change
-        bullet(PlayerX,BulletY)
+        bullet(BulletX,BulletY)
 
     if( BulletY <= 0 ):
         BulletY = PlayerY
