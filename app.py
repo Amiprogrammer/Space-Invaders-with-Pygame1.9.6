@@ -66,6 +66,8 @@ font_score = pygame.font.Font("Roboto-Bold.ttf",32)
 
 font_game_over = pygame.font.Font("Roboto-Bold.ttf",72)
 
+font_copyright = pygame.font.Font("Roboto-Bold.ttf",20)
+
 def show_score(x,y):
     score = font_score.render(f"Score : {p_score}", True, (250,250,250))
     screen.blit(score,(x,y))
@@ -73,6 +75,10 @@ def show_score(x,y):
 def game_over():
     game_over = font_game_over.render("Game Over!", True, (250,250,250))
     screen.blit(game_over,(250,200))
+
+def copyright():
+    copyright = font_copyright.render("(C) 2020. built by Juliao Martins", True, (180,180,200))
+    screen.blit(copyright,(500,560))
 
 # function to include player
 def player(x,y):
@@ -186,6 +192,9 @@ while running:
 
     # call show_score function
     show_score(TextX,TextY)
+
+    # call copyright function
+    copyright()
 
     pygame.display.update() # to update anything in pygame
 
