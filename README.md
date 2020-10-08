@@ -5,4 +5,4 @@ This repository is for creating game space invaders while learning pygame framew
 * [https://www.pygame.org/](https://www.pygame.org/) to get the pygame framework and it's documents.
 * [https://www.flaticon.com/](https://www.flaticon.com/) to get a icon & image.
 
-***Learn and develop by [Amiprogrammer](https://github.com/amiprogrammer/)***
+***Learn and develop by [Amiprogrammer](https://github.com/Amiprogrammer/)***
