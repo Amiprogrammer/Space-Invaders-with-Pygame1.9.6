@@ -64,17 +64,16 @@ p_score = 0
 TextX,TextY = 10,10
 font_score = pygame.font.Font("Roboto-Bold.ttf",32)
 
-font_game_over = pygame.font.Font("Roboto-Bold.ttf",72)
-
 font_copyright = pygame.font.Font("Roboto-Bold.ttf",20)
 
 def show_score(x,y):
     score = font_score.render(f"Score : {p_score}", True, (250,250,250))
     screen.blit(score,(x,y))
 
+gameover_img = pygame.image.load("game-over.png")
 def game_over():
-    game_over = font_game_over.render("Game Over!", True, (250,250,250))
-    screen.blit(game_over,(250,200))
+    global gameover_img
+    screen.blit(gameover_img,(260,140))
 
 def copyright():
     copyright = font_copyright.render("(C) 2020. built by Juliao Martins", True, (180,180,200))
